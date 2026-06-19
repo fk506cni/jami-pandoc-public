@@ -199,8 +199,35 @@ def resize_images_in_content(content_elements, max_width_emu):
                             a_ext.set("cy", str(int(a_cy * a_ratio)))
 
 
+def _center_table(tbl):
+    """Center a table within its container (text box).
+
+    A table narrower than the text box would otherwise sit left-aligned with
+    empty space on its right. Setting tblPr > jc=center balances it. For a
+    table that already fills the box this is a visual no-op. The w:jc element is
+    inserted at its correct CT_TblPr schema position (right after tblW etc.).
+    """
+    tblpr = tbl.find(f"{W}tblPr")
+    if tblpr is None:
+        tblpr = ET.Element(f"{W}tblPr")
+        tbl.insert(0, tblpr)
+    for jc in tblpr.findall(f"{W}jc"):
+        tblpr.remove(jc)
+    # CT_TblPr elements that must precede <w:jc>.
+    before = {f"{W}{t}" for t in (
+        "tblStyle", "tblpPr", "tblOverlap", "bidiVisual",
+        "tblStyleRowBandSize", "tblStyleColBandSize", "tblW")}
+    idx = 0
+    for i, child in enumerate(list(tblpr)):
+        if child.tag in before:
+            idx = i + 1
+    jc = ET.Element(f"{W}jc")
+    jc.set(f"{W}val", "center")
+    tblpr.insert(idx, jc)
+
+
 def resize_tables_in_content(content_elements, max_width_emu):
-    """Resize tables in content to fit within max_width_emu.
+    """Resize tables in content to fit within max_width_emu, and center them.
 
     Scales gridCol widths proportionally. 1 twip = 635 EMU.
     """
@@ -213,6 +240,7 @@ def resize_tables_in_content(content_elements, max_width_emu):
         tables.extend(elem.iter(f"{W}tbl"))
 
         for tbl in tables:
+            _center_table(tbl)
             grid = tbl.find(f"{W}tblGrid")
             if grid is None:
                 continue
