@@ -126,6 +126,7 @@ The breakdown of the 20 trials across the three interaction conditions is shown 
 
 The mean THS by condition is summarized in [@tbl:ths] and visualized in [@fig:ths-trend]. The staring condition yielded the highest THS (2.6 tsu), consistent with the intuition that one should look directly at the target to heighten a hunch.
 
+::: {.textbox width="71mm" height="45mm" pos-x="25mm" pos-y="225mm" page="3"}
 | Condition     | Mean THS (tsu) |
 |:--------------|---------------:|
 | Staring       |            2.6 |
@@ -133,8 +134,11 @@ The mean THS by condition is summarized in [@tbl:ths] and visualized in [@fig:th
 | Looking away  |            0.3 |
 
 : Mean THS by condition (error ±500%) {#tbl:ths}
+:::
 
-![Mean THS by interaction condition (dummy figure).](src/figs/sample-results.svg){#fig:ths-trend width=70mm}
+::: {.textbox width="71mm" height="58mm" pos-x="109mm" pos-y="212mm" valign="bottom" page="3"}
+![Mean THS by interaction condition (dummy figure).](src/figs/sample-results.svg){#fig:ths-trend}
+:::
 
 ## 4. Discussion
 
