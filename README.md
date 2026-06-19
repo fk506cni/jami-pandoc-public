@@ -86,6 +86,23 @@ scripts/word-to-pdf.bat をダブルクリック（同フォルダ内の最新 d
 > LibreOffice はテキストボックスを正しくレンダリングできないため、PDF 変換には
 > Windows 上の Microsoft Word を使用します。
 
+### PDF 変換（Linux から一括: roundtrip）
+
+Linux 上で作業しつつ Word 忠実の PDF を得るための中継スクリプトです。Google Drive を介して Windows の Word COM 変換を呼び出します。
+
+```bash
+./scripts/roundtrip.sh                 # build → gdrive push → Windows で PDF 化待ち → dist/ へ pull
+./scripts/roundtrip.sh --skip-build    # 既存 dist の docx をそのまま PDF 化
+./scripts/roundtrip.sh --dry-run       # rclone を呼ばず予定のみ表示
+./scripts/roundtrip.sh --timeout 10    # PDF 待ちタイムアウト（分）
+```
+
+> 流れ: `[Linux] make build` → `docx を gdrive:tmp/<repo>/roundtrip/ へ push` → `[Windows] watch-and-convert.ps1 が Word COM で同名 PDF に変換` → `[Linux] その PDF を dist/ へ pull`。
+>
+> - **事前準備（Windows・1 回）**: Google Drive デスクトップで `tmp/<repo>/roundtrip/` を同期し、そのフォルダに `scripts/watch-and-convert.ps1` を置いて起動（Word 必須）。
+> - **依存**: host に `rclone`（`gdrive:` リモート設定済み）。`--dry-run` は rclone を呼びません。
+> - 出力は `dist/$(PROJECT_NAME).pdf`。認証情報はスクリプトに含めず、rclone 設定に委ねます。
+
 ### 発表スライド用ベクター図（任意・host ツール）
 
 ```bash
@@ -145,6 +162,8 @@ make help               # ターゲット一覧
     ├── wrap-textbox.py           # docx 後処理（booktabs + SVG 埋め込み + テキストボックス変換）
     ├── restore-textboxes.py      # diff 用: pandiff 出力に .textbox Div を復元
     ├── word-to-pdf.bat           # Windows: docx → PDF 変換（自己完結型）
+    ├── watch-and-convert.ps1     # Windows: 同期フォルダ監視で docx→PDF 自動変換（roundtrip 用）
+    ├── roundtrip.sh              # build→gdrive push→Windows(Word COM)でPDF化→pull（rclone 経由）
     └── commit-push.sh            # コミット & プッシュ
 ```
 

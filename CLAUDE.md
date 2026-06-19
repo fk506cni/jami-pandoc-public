@@ -34,6 +34,8 @@ All builds run inside a Docker container via `docker compose`.
 | `./scripts/diff.sh old.md new.md` | Color diff between two markdown files (査読対応) |
 | `./scripts/commit-push.sh` | Commit and push (`git push origin <branch>`) |
 | `scripts/word-to-pdf.bat` | Windows: ドラッグ&ドロップ or ダブルクリックで docx → PDF 変換（自己完結型） |
+| `scripts/watch-and-convert.ps1` | Windows: 同期フォルダ監視で docx→PDF 自動変換（roundtrip の Windows 側） |
+| `./scripts/roundtrip.sh [--skip-build/--timeout MIN/--poll SEC/--dry-run]` | build → docx を Google Drive へ push → Windows の watch-and-convert.ps1（Word COM）が PDF 化 → PDF を `dist/` へ pull（rclone 経由） |
 
 ## **Project Structure**
 

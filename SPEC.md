@@ -205,6 +205,8 @@ Step 9: 完了
 | `wrap-textbox.py` | `python3 scripts/wrap-textbox.py [--source paper.md] <output.docx>` | booktabs + SVG 埋め込み + テキストボックス変換（in-place） |
 | `restore-textboxes.py` | `diff.sh` から呼び出し | diff マークダウンに NEW ファイルの .textbox Div を復元 |
 | `word-to-pdf.bat` | ドラッグ&ドロップ or ダブルクリック | Windows Word COM で docx 修復 + PDF 変換（自己完結型） |
+| `watch-and-convert.ps1` | Windows 同期フォルダで起動 | docx を検知し Word COM で同名 PDF へ自動変換（roundtrip の Windows 側） |
+| `roundtrip.sh` | `./scripts/roundtrip.sh [--skip-build\|--timeout MIN\|--poll SEC\|--dry-run]` | build → docx を Google Drive へ push → Windows の watch-and-convert.ps1 が PDF 化 → PDF を `dist/` へ pull（rclone 経由・認証情報はスクリプト外） |
 | `commit-push.sh` | `./scripts/commit-push.sh` | コミット & プッシュ（`git push origin <branch>`） |
 
 ## **config.mk（プロジェクト設定）**
