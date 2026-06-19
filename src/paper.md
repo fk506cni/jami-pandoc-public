@@ -77,7 +77,15 @@ To convert the hunch into a physical quantity, we constructed the **TJD (Totetsu
 
 The SI system cannot describe the "tremendousness" of this study. We therefore define a new dimensional analysis, the **THS (Totetsumonai Hyouka Scale)**, in terms of hunch intensity $P$, cold-sweat volume $S$, and the professor's degree of exasperation $A$:
 
+```{=openxml}
+<w:p/>
+```
+
 $$THS = \frac{P \times S}{A^2}$$
+
+```{=openxml}
+<w:p/>
+```
 
 The unit of THS is the *tsu* (tremendous scale unit).
 
@@ -110,15 +118,15 @@ The breakdown of the 20 trials across the three interaction conditions is shown 
 
 [@fig:tjd-arch] shows the TJD with its labeled components, including the tremendous output display reading 2.6 tsu.
 
-::: {.textbox width="71mm" height="55mm" pos-x="20mm" pos-y="20mm" valign="bottom" page="2"}
-![Overview of the Totetsumonai Jikken Device (TJD) and its labeled parts (dummy figure).](src/figs/sample-tjd.png){#fig:tjd-arch}
+::: {.textbox width="160mm" height="100mm" pos-x="25mm" pos-y="20mm" valign="bottom" page="2"}
+![Overview of the Totetsumonai Jikken Device (TJD) and its labeled parts (dummy figure). Shown across the full two-column width.](src/figs/sample-tjd.png){#fig:tjd-arch}
 :::
 
 ### 3.3 THS by Condition
 
 The mean THS by condition is summarized in [@tbl:ths] and visualized in [@fig:ths-trend]. The staring condition yielded the highest THS (2.6 tsu), consistent with the intuition that one should look directly at the target to heighten a hunch.
 
-::: {.textbox width="71mm" height="50mm" pos-x="109mm" pos-y="20mm" page="2"}
+::: {.textbox width="71mm" height="50mm" pos-x="25mm" pos-y="135mm" page="2"}
 | Condition     | Mean THS (tsu) |
 |:--------------|---------------:|
 | Staring       |            2.6 |
@@ -128,7 +136,7 @@ The mean THS by condition is summarized in [@tbl:ths] and visualized in [@fig:th
 : Mean THS by condition (error ±500%) {#tbl:ths}
 :::
 
-::: {.textbox width="71mm" height="75mm" pos-x="109mm" pos-y="120mm" valign="bottom" page="2"}
+::: {.textbox width="71mm" height="75mm" pos-x="109mm" pos-y="135mm" valign="bottom" page="2"}
 ![Mean THS by interaction condition (dummy figure).](src/figs/sample-results.svg){#fig:ths-trend}
 :::
 
