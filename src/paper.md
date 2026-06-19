@@ -93,10 +93,10 @@ Keywords: tremendous hunch, parody, reproducible documents, Pandoc, Docker, samp
 
 $$THS = \frac{P \times S}{A^2}$$
 
-計測系の全体構成を[@fig:tjd-arch]に示す。
+TJD の概観（各部の名称）を[@fig:tjd-arch]に示す。
 
-::: {.textbox width="71mm" height="75mm" pos-x="20mm" pos-y="20mm" valign="bottom" page="2"}
-![TJD 計測系の全体構成（ダミー図）](src/figs/sample-architecture.svg){#fig:tjd-arch}
+::: {.textbox width="71mm" height="55mm" pos-x="20mm" pos-y="20mm" valign="bottom" page="2"}
+![とてつもない実験デバイス（TJD）の概観（ダミー図）](src/figs/sample-tjd.png){#fig:tjd-arch}
 :::
 
 ## 3. 結果
