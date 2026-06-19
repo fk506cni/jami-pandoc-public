@@ -13,12 +13,13 @@
 #
 # 事前準備 (Windows 側・1 回):
 #   1. Google Drive デスクトップを入れ、マイドライブ配下に
-#        <マイドライブ>/tmp/<repo名>/roundtrip/   を同期させる
-#   2. scripts/watch-and-convert.ps1 をその roundtrip/ フォルダに置いて起動
+#        <マイドライブ>/tmp/<repo名>/   を同期させる（既定はリポジトリ直下。
+#        サブフォルダにしたい場合は GDRIVE_SUBDIR=roundtrip 等を env で指定）
+#   2. scripts/watch-and-convert.ps1 をそのフォルダに置いて起動
 #      （PowerShell で .\watch-and-convert.ps1。Word インストール要）
 #
-# ⚠ これは BUILD + GDRIVE 中継ツール (private)。**公開同期 sync-public.sh とは別物**。
-#   gdrive:/rclone を使うため公開リポジトリには含めない (backup.sh と同様)。
+# ⚠ これは BUILD + GDRIVE 中継ツール。**公開同期 sync-public.sh とは別物**。
+#   認証情報はスクリプトに含めず rclone 設定に委ねる。push 先は私有 Google Drive。
 #
 # Usage:
 #   ./scripts/roundtrip.sh [OPTIONS]
@@ -39,9 +40,15 @@ cd "$PROJECT_ROOT"
 # --- 設定（env で上書き可）---
 RCLONE_REMOTE="${RCLONE_REMOTE:-gdrive:}"
 GDRIVE_BASE_PATH="${GDRIVE_BASE_PATH:-tmp}"
-PROJECT_DIRNAME="$(basename "$PROJECT_ROOT")"            # 例: jami-abstract-pandoc
-GDRIVE_SUBDIR="${GDRIVE_SUBDIR:-roundtrip}"              # Windows watcher を置くフォルダ
-GDRIVE_DEST="${RCLONE_REMOTE}${GDRIVE_BASE_PATH}/${PROJECT_DIRNAME}/${GDRIVE_SUBDIR}"
+PROJECT_DIRNAME="$(basename "$PROJECT_ROOT")"            # 例: jami-pandoc-public
+# Windows watcher を置くフォルダ。既定はリポジトリ直下 tmp/<repo>/（サブフォルダなし）。
+# 別フォルダにしたい場合は GDRIVE_SUBDIR=roundtrip 等を env で指定する。
+GDRIVE_SUBDIR="${GDRIVE_SUBDIR:-}"
+if [ -n "$GDRIVE_SUBDIR" ]; then
+    GDRIVE_DEST="${RCLONE_REMOTE}${GDRIVE_BASE_PATH}/${PROJECT_DIRNAME}/${GDRIVE_SUBDIR}"
+else
+    GDRIVE_DEST="${RCLONE_REMOTE}${GDRIVE_BASE_PATH}/${PROJECT_DIRNAME}"
+fi
 
 # 出力ファイル名 stem（config.mk から。backup.sh と同じ流儀）
 OUTPUT_NAME="$(grep '^PROJECT_NAME' "$PROJECT_ROOT/config.mk" 2>/dev/null | sed 's/.*:=\s*//' | tr -d ' ')"

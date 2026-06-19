@@ -97,9 +97,9 @@ Linux 上で作業しつつ Word 忠実の PDF を得るための中継スクリ
 ./scripts/roundtrip.sh --timeout 10    # PDF 待ちタイムアウト（分）
 ```
 
-> 流れ: `[Linux] make build` → `docx を gdrive:tmp/<repo>/roundtrip/ へ push` → `[Windows] watch-and-convert.ps1 が Word COM で同名 PDF に変換` → `[Linux] その PDF を dist/ へ pull`。
+> 流れ: `[Linux] make build` → `docx を gdrive:tmp/<repo>/ へ push` → `[Windows] watch-and-convert.ps1 が Word COM で同名 PDF に変換` → `[Linux] その PDF を dist/ へ pull`。
 >
-> - **事前準備（Windows・1 回）**: Google Drive デスクトップで `tmp/<repo>/roundtrip/` を同期し、そのフォルダに `scripts/watch-and-convert.ps1` を置いて起動（Word 必須）。
+> - **事前準備（Windows・1 回）**: Google Drive デスクトップで `tmp/<repo>/` を同期し、そのフォルダに `scripts/watch-and-convert.ps1` を置いて起動（Word 必須）。
 > - **依存**: host に `rclone`（`gdrive:` リモート設定済み）。`--dry-run` は rclone を呼びません。
 > - 出力は `dist/$(PROJECT_NAME).pdf`。認証情報はスクリプトに含めず、rclone 設定に委ねます。
 
