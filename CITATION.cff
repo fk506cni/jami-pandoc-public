@@ -1,0 +1,32 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "jami-pandoc: A reproducible Pandoc/Docker authoring environment for medical-informatics abstracts"
+abstract: >-
+  A reproducible, content/style-separated authoring environment that generates
+  template-compliant Microsoft Word (.docx) conference abstracts from Markdown
+  using Pandoc inside Docker, with deterministic builds, native SVG embedding,
+  OOXML text boxes, and color-highlighted diffs for revision.
+type: software
+authors:
+  - family-names: Fukuyama
+    given-names: Keita
+    affiliation: "Division of Medical Information Technology and Administration Planning, Department of Medical Informatics, Kyoto University Hospital"
+  - family-names: Mori
+    given-names: Yukiko
+    affiliation: "Kyoto University Hospital"
+  - family-names: Kuroda
+    given-names: Tomohiro
+    affiliation: "Kyoto University Hospital"
+version: "0.1.0"
+# date-released / repository-code / url は B2/B3 で確定（DOI は採択後に Zenodo 連携で付与）。
+date-released: "2026-06-19"
+license: MIT
+repository-code: "https://github.com/fk506cni/jami-pandoc-public"
+url: "https://github.com/fk506cni/jami-pandoc-public"
+keywords:
+  - Pandoc
+  - Docker
+  - docx
+  - reproducible documents
+  - document generation
+  - medical informatics

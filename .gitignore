@@ -1,0 +1,25 @@
+# .gitignore.public — 公開リポジトリ用 .gitignore（→ 公開 .gitignore）
+# 生成物・ビルド成果物を無視する。
+
+## Build outputs
+dist/*.docx
+dist/*.pdf
+dist/figs/
+
+## Generated reference template (run `make reference` to create)
+templates/reference.docx
+
+## SVG → PNG fallback (generated at build time)
+*.svg.png
+
+## Local archives / backups
+__archives/
+backups/
+
+## OS / editor cruft
+.DS_Store
+Thumbs.db
+*~
+*.swp
+.vscode/
+.idea/

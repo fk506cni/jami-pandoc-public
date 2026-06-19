@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Unofficial, community-made numeric citation style. NOT endorsed by any
+  association. Released under the MIT License.
+-->
+<style xmlns="http://purl.org/net/xbiblio/csl" class="in-text" version="1.0"
+       default-locale="en-US">
+  <info>
+    <title>JAMI Abstract style (unofficial, community)</title>
+    <id>https://github.com/fk506cni/jami-pandoc-public/raw/main/templates/jami.csl</id>
+    <updated>2026-01-01T00:00:00+09:00</updated>
+    <category citation-format="numeric"/>
+    <category field="medicine"/>
+    <summary>Unofficial numeric (Vancouver-like) citation style for medical-informatics abstracts. Community-made; not endorsed by any association.</summary>
+    <rights license="MIT">Released under the MIT License.</rights>
+  </info>
+
+  <!-- In-text citation: [1], [2, 3], [4-6] -->
+  <citation collapse="citation-number">
+    <sort>
+      <key variable="citation-number"/>
+    </sort>
+    <layout prefix="[" suffix="]" delimiter=", ">
+      <text variable="citation-number"/>
+    </layout>
+  </citation>
+
+  <!-- Bibliography: Vancouver-like numeric format -->
+  <!-- Format: [N] Author. Title. Journal Year; Vol(, Issue): Pages. -->
+  <bibliography entry-spacing="0" second-field-align="flush">
+    <sort>
+      <key variable="citation-number"/>
+    </sort>
+    <layout suffix=".">
+      <text variable="citation-number" prefix="[" suffix="] "/>
+      <group delimiter=". ">
+        <!-- Authors: no comma between family/given, no period after initials -->
+        <!-- 6 or fewer: all authors; 7+: first 3 then et al. -->
+        <names variable="author">
+          <name sort-separator=" " initialize-with="" name-as-sort-order="all"
+                delimiter=", " delimiter-precedes-last="always"
+                et-al-min="7" et-al-use-first="3"/>
+        </names>
+        <!-- Title -->
+        <text variable="title"/>
+        <!-- Source details vary by type -->
+        <choose>
+          <if type="article-journal article-magazine article-newspaper" match="any">
+            <group>
+              <text variable="container-title" font-style="italic"/>
+              <date variable="issued" prefix=" ">
+                <date-part name="year"/>
+              </date>
+              <group prefix="; ">
+                <text variable="volume"/>
+                <text variable="issue" prefix=", "/>
+              </group>
+              <text variable="page" prefix=": "/>
+            </group>
+          </if>
+          <else-if type="paper-conference" match="any">
+            <group>
+              <text variable="container-title" font-style="italic"/>
+              <date variable="issued" prefix=", ">
+                <date-part name="year"/>
+              </date>
+              <text variable="page" prefix=": "/>
+            </group>
+          </else-if>
+          <else>
+            <group delimiter=". ">
+              <text variable="container-title" font-style="italic"/>
+              <group delimiter=", ">
+                <text variable="publisher-place"/>
+                <text variable="publisher"/>
+              </group>
+              <date variable="issued">
+                <date-part name="year"/>
+              </date>
+              <text variable="page"/>
+            </group>
+          </else>
+        </choose>
+      </group>
+    </layout>
+  </bibliography>
+</style>

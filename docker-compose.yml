@@ -1,0 +1,14 @@
+services:
+  pandoc:
+    build:
+      context: ./docker/pandoc
+      dockerfile: Dockerfile
+    volumes:
+      - .:/workspace
+    working_dir: /workspace
+    environment:
+      - HOME=/tmp
+      # SOURCE_DATE_EPOCH: ホスト側の同名変数を透過し、Pandoc のビルド時刻
+      # （docProps/core.xml の dcterms:created/modified）を固定して決定的ビルドを実現する。
+      # 値は A0 で一度取得して固定（plan.md §9-12[DET-C2/M2]）。空でないことは A0 事前点検で確認。
+      - SOURCE_DATE_EPOCH

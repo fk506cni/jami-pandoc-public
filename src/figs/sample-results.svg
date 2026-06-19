@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Dummy sample figure (parody). Hand-authored, no metadata. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="320" viewBox="0 0 640 320">
+  <rect x="0" y="0" width="640" height="320" fill="#ffffff"/>
+  <g font-family="sans-serif" font-size="14">
+    <text x="320" y="28" font-size="18" font-weight="bold" text-anchor="middle">条件別の THS（ダミー）</text>
+
+    <!-- axes -->
+    <line x1="80" y1="260" x2="600" y2="260" stroke="#444" stroke-width="2"/>
+    <line x1="80" y1="60"  x2="80"  y2="260" stroke="#444" stroke-width="2"/>
+    <text x="30" y="160" text-anchor="middle" transform="rotate(-90 30 160)">THS (tsu)</text>
+
+    <!-- gridlines / y labels -->
+    <g stroke="#ddd" stroke-width="1">
+      <line x1="80" y1="200" x2="600" y2="200"/>
+      <line x1="80" y1="140" x2="600" y2="140"/>
+      <line x1="80" y1="80"  x2="600" y2="80"/>
+    </g>
+    <g text-anchor="end" font-size="12" fill="#444">
+      <text x="74" y="264">0</text>
+      <text x="74" y="204">1</text>
+      <text x="74" y="144">2</text>
+      <text x="74" y="84">3</text>
+    </g>
+
+    <!-- bars: 凝視=2.6, そっと触れる=1.2, 見て見ぬふり=0.3 -->
+    <g fill="#2E74B5">
+      <rect x="140" y="104" width="90" height="156"/>
+      <rect x="290" y="188" width="90" height="72"/>
+      <rect x="440" y="242" width="90" height="18"/>
+    </g>
+    <g text-anchor="middle" font-size="13">
+      <text x="185" y="98">2.6</text>
+      <text x="335" y="182">1.2</text>
+      <text x="485" y="236">0.3</text>
+      <text x="185" y="280">凝視</text>
+      <text x="335" y="280">そっと触れる</text>
+      <text x="485" y="280">見て見ぬふり</text>
+    </g>
+  </g>
+</svg>
