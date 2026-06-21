@@ -61,6 +61,17 @@ BUILD_LOG="$(mktemp)"; trap 'rm -f "$BUILD_LOG"' EXIT
 
 echo "=== roundtrip-bench: start $START_TS (project=$OUTPUT_NAME) ==="
 
+# --- 事前点検: ビルドには参照テンプレが必要（公開 repo は JAMI 公式テンプレ非同梱）---
+if [ "$SKIP_BUILD" != true ] && [ ! -f "templates/reference.docx" ] && [ ! -f "dist/abstract_template_en.docx" ]; then
+  echo "ERROR: 参照テンプレートがありません（templates/reference.docx も dist/abstract_template_en.docx も無し）。" >&2
+  echo "  公開リポジトリは JAMI 公式テンプレートを同梱していません。README の手順で準備してください:" >&2
+  echo "    1) JAMI テンプレートを取得し dist/abstract_template_en.docx に保存（README のDL手順参照）" >&2
+  echo "    2) make reference        # templates/reference.docx を生成（make build でも自動生成）" >&2
+  echo "    3) bash scripts/roundtrip-bench.sh" >&2
+  echo "  ※ 既にビルド済みの docx で PDF 化のみ計測するなら --skip-build を使ってください。" >&2
+  exit 1
+fi
+
 # --- Phase 1: build (docx) ---
 BUILD_SEC="null"
 if [ "$SKIP_BUILD" = true ]; then
