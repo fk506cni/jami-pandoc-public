@@ -7,7 +7,9 @@ dist/*.pdf
 dist/*.json
 dist/figs/
 
-## Generated reference template (run `make reference` to create)
+## JAMI 公式テンプレート（著作権物・絶対にコミットしない）と生成 reference
+## 公式テンプレは同梱しない。ローカルに置いた場合のみ build/bench が使う（gitignore で保護）。
+dist/abstract_template_en.docx
 templates/reference.docx
 
 ## SVG → PNG fallback (generated at build time)
