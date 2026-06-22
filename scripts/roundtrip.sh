@@ -25,7 +25,7 @@
 #   ./scripts/roundtrip.sh [OPTIONS]
 # Options:
 #   --skip-build    ビルドをスキップ（既存 dist の docx を push 以降のみ）
-#   --timeout MIN   PDF 待ちタイムアウト（既定 5 分）
+#   --timeout MIN   PDF 待ちタイムアウト（既定 10 分。Drive 同期遅延の裾で 5 分超があるため）
 #   --poll SEC      ポーリング間隔（既定 10 秒）
 #   --dry-run       rclone を一切呼ばず予定のみ表示（live アップロードなし）
 #   -h, --help      ヘルプ表示
@@ -60,7 +60,7 @@ PRODUCTS_DIR="dist"          # PDF の pull 先
 
 # --- フラグ ---
 SKIP_BUILD=false
-TIMEOUT_MIN=5
+TIMEOUT_MIN=10
 POLL_SEC=10
 DRY_RUN=false
 

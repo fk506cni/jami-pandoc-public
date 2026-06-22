@@ -190,4 +190,8 @@ $TRIALS
 JSON
 
 echo "=== done: ok=$OK failed=$FAIL → $OUT ==="
+if [ "$FAIL" -gt 0 ]; then
+  echo "⚠ $FAIL/$RUNS 試行が失敗(timeout 等)。集計はその分を除外しており平均が下振れ（バイアス）の可能性。" >&2
+  echo "  脱落なく測るには --timeout を上げて再計測してください（例: --timeout 15）。" >&2
+fi
 echo "aggregate_seconds:"; printf '  build        : %s\n  roundtrip_pdf: %s\n  total        : %s\n' "$BUILD_AGG" "$RT_AGG" "$TOTAL_AGG"
