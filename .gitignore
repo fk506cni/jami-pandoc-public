@@ -5,6 +5,7 @@
 dist/*.docx
 dist/*.pdf
 dist/*.json
+dist/*.lock
 dist/figs/
 
 ## JAMI 公式テンプレート（著作権物・絶対にコミットしない）と生成 reference

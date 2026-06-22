@@ -103,6 +103,22 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
+# --- 多重起動ガード（flock）---
+# roundtrip は同一 Drive フォルダ・PDF パス・作業ツリーを共有するため多重起動不可。
+# bench から呼ばれた場合(ROUNDTRIP_LOCK_HELD=1)は親がロック保持済み→再取得しない（自己デッドロック回避）。
+if [[ "$DRY_RUN" != true && -z "${ROUNDTRIP_LOCK_HELD:-}" ]]; then
+    if command -v flock >/dev/null 2>&1; then
+        mkdir -p "$PROJECT_ROOT/dist"
+        exec 9>"$PROJECT_ROOT/dist/.roundtrip.lock"
+        if ! flock -n 9; then
+            log_error "別の roundtrip/bench が実行中です（多重起動防止のため中止）。確認: pgrep -af roundtrip"
+            exit 1
+        fi
+    else
+        log_warn "flock 不在のため多重起動ガード無効。手動で二重起動しないこと。"
+    fi
+fi
+
 # ============================================================
 # Phase 1: ビルド
 # ============================================================
