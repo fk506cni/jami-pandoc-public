@@ -12,6 +12,7 @@
 # 使い方:
 #   ./scripts/roundtrip-bench.sh [-n N] [--skip-build] [roundtrip.sh のオプション...]
 #     -n, --runs N         試行回数（既定 32）
+#     --gap SEC            試行間の休止秒（既定 20。Drive 同期の throttle/stall を抑える。0 で無効）
 #     --skip-build         cold ビルドを行わず既存 docx で PDF 化のみ N 回計測（build は null）
 #     --timeout MIN/--poll SEC 等は roundtrip.sh にそのまま渡す
 #   出力: dist/roundtrip-bench_<UTC タイムスタンプ>.json（trials[] + aggregate）
@@ -38,19 +39,23 @@ PDF="dist/${OUTPUT_NAME}.pdf"
 
 # --- 引数解析 ---
 RUNS=32
+GAP=20            # 試行間の休止秒（Drive クライアントに同期キューを捌かせ throttle/stall を抑える）
 SKIP_BUILD=false
 RT_ARGS=()
 while [ $# -gt 0 ]; do
   case "$1" in
     -n|--runs)   RUNS="$2"; shift 2 ;;
     --runs=*)    RUNS="${1#*=}"; shift ;;
+    --gap)       GAP="$2"; shift 2 ;;
+    --gap=*)     GAP="${1#*=}"; shift ;;
     --skip-build) SKIP_BUILD=true; shift ;;
-    -h|--help)   sed -n '2,32p' "$0"; exit 0 ;;
+    -h|--help)   sed -n '2,33p' "$0"; exit 0 ;;
     *)           RT_ARGS+=("$1"); shift ;;
   esac
 done
 case "$RUNS" in ''|*[!0-9]*) echo "ERROR: --runs は正の整数: $RUNS" >&2; exit 2 ;; esac
 [ "$RUNS" -ge 1 ] || { echo "ERROR: --runs は 1 以上: $RUNS" >&2; exit 2; }
+case "$GAP" in ''|*[!0-9]*) echo "ERROR: --gap は 0 以上の整数(秒): $GAP" >&2; exit 2 ;; esac
 
 # --- ヘルパー ---
 now() { date +%s.%N; }
@@ -107,6 +112,8 @@ TRIALS=""
 OK=0; FAIL=0
 
 for i in $(seq 1 "$RUNS"); do
+  # 試行間ギャップ（2回目以降）: Drive クライアントに同期キューを捌かせ throttle/stall を抑える
+  if [ "$i" -gt 1 ] && [ "$GAP" -gt 0 ]; then echo "[gap] ${GAP}s 休止"; sleep "$GAP"; fi
   build_sec="null"; ok=true
 
   # --- cold ビルド（毎回 make clean で強制再ビルド）---
@@ -175,6 +182,7 @@ cat > "$OUT" <<JSON
   "arch": "$(uname -m)",
   "source_date_epoch": "${SOURCE_DATE_EPOCH:-}",
   "runs_requested": $RUNS,
+  "gap_seconds": $GAP,
   "runs_ok": $OK,
   "runs_failed": $FAIL,
   "cold_build": $([ "$SKIP_BUILD" = true ] && echo false || echo true),
